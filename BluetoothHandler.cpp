@@ -1,25 +1,23 @@
 #include "BluetoothHandler.h"
-#include <Arduino.h>
-#include <SPI.h>
-#include "Adafruit_BLE.h"
-#include "Adafruit_BluefruitLE_SPI.h"
-#include "Adafruit_BluefruitLE_UART.h"
 
-#define MINIMUM_FIRMWARE_VERSION    "0.6.6"
+#define MINIMUM_FIRMWARE_VERSION    "0.6.6" //this can go in the header
 
-Adafruit_BluefruitLE_SPI ble(BLUEFRUIT_SPI_CS, BLUEFRUIT_SPI_IRQ, BLUEFRUIT_SPI_RST);
+Adafruit_BluefruitLE_SPI ble(BLUEFRUIT_SPI_CS, BLUEFRUIT_SPI_IRQ, BLUEFRUIT_SPI_RST); 
 
-bool isBLEConnected;
 
-MiniKeyboard::BluetoothHandler::BluetoothHandler(){
-	isBLEConnected = false;
+
+using namespace MiniKeyboard;
+
+BluetoothHandler::BluetoothHandler(){
+	getBLEConnected = ble.isConnected();
 }
-void error(const __FlashStringHelper*err) {
+
+void BluetoothHandler::error(const __FlashStringHelper*err) {
   Serial.println(err);
   while (1);
 }
 
-void startBluetooth()
+void BluetoothHandler::startBluetooth()
 {
 
   if ( !ble.begin(VERBOSE_MODE) )
@@ -60,11 +58,11 @@ void startBluetooth()
   }
 }
 
-void endBluetooth(){
+void BluetoothHandler::endBluetooth(){
 	ble.disconnect();
 }
 
-void sendKeyStrokes()
+void BluetoothHandler::sendKeyStrokes()
 {
   // Display prompt
   Serial.print(F("keyboard > "));
@@ -89,8 +87,4 @@ void sendKeyStrokes()
   {
     Serial.println( F("FAILED!") );
   }
-}
-
-bool getBLEConnected(){
-	return ble.isConnected();
 }

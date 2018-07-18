@@ -1,10 +1,4 @@
-#include <Arduino.h>
-#include <SPI.h>
-#include "Adafruit_BLE.h"
-#include "Adafruit_BluefruitLE_SPI.h"
-#include "Adafruit_BluefruitLE_UART.h"
-#include "USBHandler.h"
-#include "BluetoothHandler.h"
+#include "USBHandler.h"	//this includes bluetoothhandler
 #include "Keyboard.h"
 
 /*
@@ -50,7 +44,7 @@ using namespace MiniKeyboard;
   void initPorts();
   void readKeys();
   
-  BluetoothHandler * bleHan;
+  
 
     void setup() { 
         initPorts();
@@ -109,7 +103,7 @@ using namespace MiniKeyboard;
     }
 
     void loop() {
-      if(bleHan->getBLEConnected()){
+      if(bleHan->isBLEConnected){
           //   // read through the keyboard matrix and if the required ports are on send the related keyboard command
           digitalWrite(13, HIGH);
       } else {

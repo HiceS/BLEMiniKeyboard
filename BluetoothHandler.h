@@ -46,18 +46,25 @@
 #define BLUEFRUIT_SPI_IRQ              7
 #define BLUEFRUIT_SPI_RST              4    // Optional but recommended, set to -1 if unused
 
-namespace MiniKeyboard{
-	class BluetoothHandler{
+
+
+#endif
+
+
+namespace MiniKeyboard {
+	class BluetoothHandler {
 	public:
-		BluetoothHandler();                  // function called the default constructor
-		bool getBLEConnected();
-		void startBluetooth();
+		BluetoothHandler();
+		~BluetoothHandler();
+
 		void endBluetooth();
+		void SendKeyStrokes();
+		void startBluetooth();
+		void error();
 
 
+		bool isBLEConnected; //should be private 
 	private:
 
 	};
 }
-
-#endif
